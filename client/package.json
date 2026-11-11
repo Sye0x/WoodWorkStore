@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@hookform/resolvers": "^7.0.5",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-router": "^1.170.46",
     "@tanstack/react-router-devtools": "^1.167.2",
@@ -20,8 +21,10 @@
     "lucide-react": "^1.66.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "react-hook-form": "^7.91.0",
     "tailwind-merge": "^3.7.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tanstack/router-plugin": "^1.168.48",
