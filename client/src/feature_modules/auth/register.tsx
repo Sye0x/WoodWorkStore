@@ -6,7 +6,12 @@ import { Trees, Hammer, ArrowRight } from "lucide-react";
 import PasswordInput from "@/components/reuseable/PasswordInput";
 import FormInput from "@/components/reuseable/formInput";
 import PhoneInput from "@/components/reuseable/PhoneInput";
+
 import { Link } from "@tanstack/react-router";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const registerSchema = z
   .object({
@@ -17,7 +22,16 @@ const registerSchema = z
       .min(11, "Please enter a valid phone number")
       .regex(/^\+?[0-9\s()-]+$/, "Invalid phone number"),
     address: z.string().min(10, "Please enter your complete address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character",
+      ),
     confirmPassword: z.string().min(1, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -55,7 +69,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 md:p-8">
-      <div className="w-full max-w-6xl min-h-170 bg-card rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2">
+      <Card className="w-full max-w-6xl min-h-170 rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 p-0">
         {/* Left Branding Section */}
         <div className="relative hidden lg:flex flex-col justify-between bg-wood-dark text-white p-12 overflow-hidden">
           <div
@@ -109,7 +123,7 @@ export default function Register() {
         </div>
 
         {/* Right Registration Section */}
-        <div className="flex flex-col justify-center px-6 py-10 sm:px-12 lg:px-16">
+        <CardContent className="flex flex-col justify-center px-6 py-10 sm:px-12 lg:px-16">
           {/* Mobile Brand */}
           <div className="flex lg:hidden items-center gap-3 mb-10">
             <div className="w-11 h-11 rounded-xl bg-wood-dark flex items-center justify-center">
@@ -203,14 +217,14 @@ export default function Register() {
               />
 
               {/* Submit */}
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full h-12 rounded-xl bg-primary hover:bg-wood-brown disabled:opacity-60 text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-wood-dark/10"
               >
                 {isSubmitting ? "Creating Account..." : "Create Account"}
                 {!isSubmitting && <ArrowRight size={18} />}
-              </button>
+              </Button>
             </form>
 
             {/* Login Link */}
@@ -227,14 +241,16 @@ export default function Register() {
             </div>
 
             {/* Footer */}
-            <div className="mt-10 pt-6 border-t border-border text-center">
+            <div className="mt-10 pt-6 text-center">
+              <Separator className="mb-6" />
+
               <p className="text-xs text-wood-subtle">
                 Quality craftsmanship, delivered with care.
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

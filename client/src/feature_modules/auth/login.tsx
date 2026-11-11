@@ -6,7 +6,12 @@ import { ArrowRight, Trees, Hammer } from "lucide-react";
 
 import FormInput from "@/components/reuseable/formInput";
 import PasswordInput from "@/components/reuseable/PasswordInput";
+
 import { Link } from "@tanstack/react-router";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -42,7 +47,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 md:p-8">
-      <div className="w-full max-w-6xl min-h-170 bg-card rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2">
+      <Card className="w-full max-w-6xl min-h-170 rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 p-0">
         {/* Left Branding Section */}
         <div className="relative hidden lg:flex flex-col justify-between bg-wood-dark text-white p-12 overflow-hidden">
           <div
@@ -108,7 +113,7 @@ export default function Login() {
         </div>
 
         {/* Right Login Section */}
-        <div className="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
+        <CardContent className="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
           {/* Mobile Brand */}
           <div className="flex lg:hidden items-center gap-3 mb-12">
             <div className="w-11 h-11 rounded-xl bg-wood-dark flex items-center justify-center">
@@ -124,6 +129,7 @@ export default function Login() {
           </div>
 
           <div className="max-w-md w-full mx-auto">
+            {/* Heading */}
             <div className="mb-9">
               <p className="text-sm font-medium text-wood-medium mb-3 tracking-wider uppercase">
                 Welcome Back
@@ -138,6 +144,7 @@ export default function Login() {
               </p>
             </div>
 
+            {/* Form */}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Email */}
               <FormInput
@@ -175,7 +182,7 @@ export default function Login() {
                 </label>
 
                 <Link
-                  to={"/auth/forgotpassword"}
+                  to="/auth/forgotpassword"
                   className="text-sm font-semibold text-wood-primary hover:text-wood-brown transition-colors"
                 >
                   Forgot password?
@@ -183,13 +190,13 @@ export default function Login() {
               </div>
 
               {/* Submit */}
-              <button
+              <Button
                 type="submit"
                 className="w-full h-12 rounded-xl bg-primary hover:bg-wood-brown text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-wood-dark/10"
               >
                 Sign In
                 <ArrowRight size={18} />
-              </button>
+              </Button>
             </form>
 
             {/* Register */}
@@ -205,15 +212,17 @@ export default function Login() {
               </p>
             </div>
 
-            {/* Bottom note */}
-            <div className="mt-12 pt-6 border-t border-border text-center">
+            {/* Bottom Note */}
+            <div className="mt-12 pt-6 text-center">
+              <Separator className="mb-6" />
+
               <p className="text-xs text-wood-subtle">
                 Quality craftsmanship, delivered with care.
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

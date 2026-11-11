@@ -6,6 +6,10 @@ import { Link } from "@tanstack/react-router";
 
 import FormInput from "@/components/reuseable/formInput";
 
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
 const forgotPasswordSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
 });
@@ -33,7 +37,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 md:p-8">
-      <div className="w-full max-w-6xl min-h-170 bg-card rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2">
+      <Card className="w-full max-w-6xl min-h-170 rounded-3xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-2 p-0">
         {/* Left Branding Section */}
         <div className="relative hidden lg:flex flex-col justify-between bg-wood-dark text-white p-12 overflow-hidden">
           <div
@@ -87,7 +91,7 @@ export default function ForgotPassword() {
         </div>
 
         {/* Right Forgot Password Section */}
-        <div className="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
+        <CardContent className="flex flex-col justify-center px-6 py-12 sm:px-12 lg:px-16">
           {/* Mobile Brand */}
           <div className="flex lg:hidden items-center gap-3 mb-12">
             <div className="w-11 h-11 rounded-xl bg-wood-dark flex items-center justify-center">
@@ -138,14 +142,14 @@ export default function ForgotPassword() {
               />
 
               {/* Submit */}
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full h-12 rounded-xl bg-primary hover:bg-wood-brown disabled:opacity-60 text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-wood-dark/10"
               >
                 {isSubmitting ? "Sending Instructions..." : "Send Reset Link"}
                 {!isSubmitting && <ArrowRight size={18} />}
-              </button>
+              </Button>
             </form>
 
             {/* Back to Login */}
@@ -160,14 +164,16 @@ export default function ForgotPassword() {
             </div>
 
             {/* Footer */}
-            <div className="mt-12 pt-6 border-t border-border text-center">
+            <div className="mt-12 pt-6 text-center">
+              <Separator className="mb-6" />
+
               <p className="text-xs text-wood-subtle">
                 Quality craftsmanship, delivered with care.
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
